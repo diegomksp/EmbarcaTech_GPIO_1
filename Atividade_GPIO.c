@@ -110,6 +110,10 @@ void initialize_gpio() {
     // GPIO do led azull
     gpio_init(LED_BLUE);
     gpio_set_dir(LED_BLUE, GPIO_OUT);
+    gpio_init(LED_RED);
+    gpio_set_dir(LED_RED, GPIO_OUT);
+    gpio_init(LED_GREEN);
+    gpio_set_dir(LED_GREEN, GPIO_OUT);
 } // Fim initialize_gpio
 
 // Função para leitura do teclado
