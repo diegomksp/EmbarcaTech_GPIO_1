@@ -43,37 +43,37 @@ int main() {
 
             // Switch case para cada botão do teclado
             switch(key) {
-                case '1':
+                case '1':gpio_put(led_pin_green, true);
                     break;
-                case '2':
+                case '2':gpio_put(led_pin_blue, true);
                     break;
-                case '3':
+                case '3':gpio_put(led_pin_red, true);
                     break;
-                case '4':
+                case '4':gpio_put(led_pin_green, true);
                     break;
-                case '5':
+                case '5':gpio_put(led_pin_blue, true);
                     break;
-                case '6':
+                case '6':gpio_put(led_pin_red, true);
                     break;
-                case '7':
+                case '7':gpio_put(led_pin_green, true);
                     break;
-                case '8':
+                case '8':gpio_put(led_pin_blue, true);
                     break;
-                case '9':
+                case '9':gpio_put(led_pin_red, true);
                     break;
-                case '0':
+                case '0':gpio_put(led_pin_green, true);
                     break;
-                case 'A':
+                case 'A':gpio_put(led_pin_blue, true);
                     break;
-                case 'B':
+                case 'B':gpio_put(led_pin_red, true);
                     break;
-                case 'C':
+                case 'C':gpio_put(led_pin_green, true);
                     break;
-                case 'D':
+                case 'D':gpio_put(led_pin_blue, true);
                     break;
-                case '*':
+                case '*':gpio_put(led_pin_red, true);
                     break;
-                case '#':
+                
                     printf("Buzzer acionado!\n");
                     buzzer_beep();
                     break;
@@ -107,7 +107,7 @@ void initialize_gpio() {
     gpio_set_dir(BUZZER_PIN, GPIO_OUT);
     gpio_put(BUZZER_PIN, 0);
 
-    // GPIO do led azull
+    // GPIO do led azul,verde,vermelho
     gpio_init(LED_BLUE);
     gpio_set_dir(LED_BLUE, GPIO_OUT);
     gpio_init(LED_RED);
