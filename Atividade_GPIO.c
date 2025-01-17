@@ -1,19 +1,24 @@
+// Bibliotecas que usaremos no projeto
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-#define NUM_ROW_COLUMNS 4
-#define BUZZER_PIN 28
-#define LED_RED 11
-#define LED_GREEN 12
-#define LED_BLUE 13
+// Macros para usarmos como sonstantes no codigo
+#define NUM_ROW_COLUMNS 4 // Número de linhas e colunas
+#define BUZZER_PIN 28 // Pino do Buzzer
+#define LED_RED 11 // Pino do led vermelho
+#define LED_GREEN 12 // Pino do led verde
+#define LED_BLUE 13 // Pino do led azul
 
+// Definição das funções implementadas no projeto
 void initialize_gpio();
 char read_keyboard();
 void buzzer_beep();
 
-uint8_t row_pins[NUM_ROW_COLUMNS] = {2, 3, 4, 5};
-uint8_t column_pins[NUM_ROW_COLUMNS] = {6, 7, 8, 9};
+// Vetores para as linhas e colunas GPIO do teclado
+uint8_t row_pins[NUM_ROW_COLUMNS] = {2, 3, 4, 5}; // Vetor para as linhas GPIO
+uint8_t column_pins[NUM_ROW_COLUMNS] = {6, 7, 8, 9}; // Vetor para as colunas GPIO
 
+// Representação do teclado
 char key_board[NUM_ROW_COLUMNS][NUM_ROW_COLUMNS] = {
     {'1', '2', '3', 'A'},
     {'4', '5', '6', 'B'},
@@ -21,7 +26,9 @@ char key_board[NUM_ROW_COLUMNS][NUM_ROW_COLUMNS] = {
     {'*', '0', '#', 'D'}
 };
 
+// Função main
 int main() {
+    // Inicialialização dos GPIOs
     stdio_init_all();
     initialize_gpio();
 
@@ -30,9 +37,11 @@ int main() {
     while (1) {
         char key = read_keyboard();
 
+        // Verifica se um botão foi teclado
         if (key) {
             printf("Tecla pressionada: %c\n", key);
 
+            // Switch case para cada botão do teclado
             switch(key) {
                 case '1':
                     break;
@@ -75,8 +84,9 @@ int main() {
     }
 
     return 0;
-}
+} // Fim main
 
+// Função para inicializar os GPIOs
 void initialize_gpio() {
     int i;
 
@@ -92,14 +102,17 @@ void initialize_gpio() {
         gpio_pull_down(column_pins[i]);
     }
 
+    // GPIO do Buzzer
     gpio_init(BUZZER_PIN);
     gpio_set_dir(BUZZER_PIN, GPIO_OUT);
     gpio_put(BUZZER_PIN, 0);
 
+    // GPIO do led azull
     gpio_init(LED_BLUE);
     gpio_set_dir(LED_BLUE, GPIO_OUT);
-}
+} // Fim initialize_gpio
 
+// Função para leitura do teclado
 char read_keyboard() {
     int i, j;
 
@@ -116,11 +129,12 @@ char read_keyboard() {
         gpio_put(row_pins[i], 0);
     }
     return 0;
-}
+} // Fim read_keyboard
 
+// Função para o buzzer(Ainda em andamento)
 void buzzer_beep() {
     gpio_put(BUZZER_PIN, 1);
     sleep_us(200);
     gpio_put(BUZZER_PIN, 0);
     sleep_us(100);
-}
+} // Fim buzzer_beep
