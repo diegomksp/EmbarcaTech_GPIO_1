@@ -90,6 +90,9 @@ int main()
             case 'D':
                 Pisca_BLUE();
                 break;
+            case '#':
+                Pisca_BLUE();
+                break;
             case '*':
                 Pisca_RED();
                 printf("Buzzer acionado!\n");
@@ -180,13 +183,13 @@ void Pisca_RED()
 }
 void Pisca_BLUE()
 {
-    gpio_put(LED_RED, true);
+    gpio_put(LED_BLUE, true);
     sleep_ms(500);
-    gpio_put(LED_RED, false);
+    gpio_put(LED_BLUE, false);
 }
 void Pisca_GREEN()
 {
-    gpio_put(LED_RED, true);
+    gpio_put(LED_GREEN, true);
     sleep_ms(500);
-    gpio_put(LED_RED, false);
+    gpio_put(LED_GREEN, false);
 }
