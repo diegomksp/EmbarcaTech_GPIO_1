@@ -16,6 +16,8 @@ void buzzer_beep();
 void Pisca_RED();
 void Pisca_GREEN();
 void Pisca_BLUE();
+void tmed();
+void tfinal();
 
 // Vetores para as linhas e colunas GPIO do teclado
 uint8_t row_pins[NUM_ROW_COLUMNS] = {2, 3, 4, 5};    // Vetor para as linhas GPIO
@@ -31,6 +33,7 @@ char key_board[NUM_ROW_COLUMNS][NUM_ROW_COLUMNS] = {
 // Função main
 int main()
 {
+
     // Inicialialização dos GPIOs
     initialize_gpio();
     stdio_init_all();
@@ -43,57 +46,74 @@ int main()
         // Verifica se um botão foi teclado
         if (key)
         {
+            int t;
             printf("Tecla pressionada: %c\n", key);
 
             // Switch case para cada botão do teclado
             switch (key)
             {
-            case '1':
-                Pisca_RED();
+            case '1': //SOS vermelho
+                t=200;
+                Pisca_RED(t);Pisca_RED(t);Pisca_RED(t);tmed();//S   
+                t=800;
+                Pisca_RED(t);Pisca_RED(t);Pisca_RED(t);tmed();//O
+                t=200;
                 break;
-            case '2':
-                Pisca_BLUE();;
+            case '2': //SOS verde
+                t=200;
+                Pisca_GREEN(t);Pisca_GREEN(t);Pisca_GREEN(t);tmed();//S
+                t=800;
+                Pisca_GREEN(t);Pisca_GREEN(t);Pisca_GREEN(t);tmed();//O
+                t=200;
+                Pisca_GREEN(t);Pisca_GREEN(t);Pisca_GREEN(t);tfinal();//S
                 break;
-            case '3':
-                Pisca_RED();
+            case '3': //SOS azul
+                t=200;
+                Pisca_BLUE(t);Pisca_BLUE(t);Pisca_BLUE(t);tmed();//S
+                t=800;
+                Pisca_BLUE(t);Pisca_BLUE(t);Pisca_BLUE(t);tmed();//O
+                t=200;
+                Pisca_BLUE(t);Pisca_BLUE(t);Pisca_BLUE(t);tfinal();//S
                 break;
             case '4':
-                Pisca_GREEN();
+                Pisca_GREEN(t);
                 break;
             case '5':
-                Pisca_BLUE();;
+                Pisca_BLUE(t);;
                 break;
             case '6':
-                Pisca_RED();
+                Pisca_RED(t);
                 break;
             case '7':
-               Pisca_GREEN();
+               Pisca_GREEN(t);
                break;
             case '8':
-                Pisca_BLUE();;
+                Pisca_BLUE(t);;
                 break;
             case '9':
-                Pisca_RED();
+                Pisca_RED(t);
                 break;
             case '0':
-               Pisca_GREEN();
+               Pisca_GREEN(t);
                break;
             case 'A':
-                Pisca_RED();;
+                Pisca_RED(t);;
                 break;
             case 'B':
-                Pisca_GREEN();
+                int t = 500;
+                Pisca_GREEN(t);
                 break;
             case 'C':
-               Pisca_BLUE();
+               Pisca_BLUE(t);
                break;
-            case 'D':      
+            case 'D': 
+                Pisca_RED(t);Pisca_GREEN(t);Pisca_BLUE(t);      
                 break;
             case '#':
                 buzzer_beep();
                 break;
             case '*':
-                Pisca_RED();Pisca_GREEN();Pisca_BLUE(); 
+                Pisca_RED(t);Pisca_GREEN(t);Pisca_BLUE(t); 
                 printf("Buzzer acionado!\n");
                 buzzer_beep();
                 break;
@@ -161,7 +181,7 @@ char read_keyboard()
 } // Fim read_keyboard
 
 // Função para o buzzer(Ainda em andamento)
-void buzzer_beep()
+void buzzer_beep(int a)
 {
     int contB;
     for (contB = 0; contB < 100; contB++)
@@ -173,21 +193,32 @@ void buzzer_beep()
     }
 } // Fim buzzer_beep
 
-void Pisca_RED()
+void Pisca_RED(int a)
 {
     gpio_put(LED_RED, true);
-    sleep_ms(500);
+    sleep_ms(a);
     gpio_put(LED_RED, false);
+    sleep_ms(125);
 }
-void Pisca_BLUE()
+void Pisca_BLUE(int a)
 {
     gpio_put(LED_BLUE, true);
-    sleep_ms(500);
+    sleep_ms(a);
     gpio_put(LED_BLUE, false);
+    sleep_ms(125);
 }
-void Pisca_GREEN()
+void Pisca_GREEN(int a)
 {
     gpio_put(LED_GREEN, true);
-    sleep_ms(500);
+    sleep_ms(a);
     gpio_put(LED_GREEN, false);
+    sleep_ms(125);
+}
+void tmed()
+{
+  sleep_ms(125);
+}
+void tfinal()
+{
+  sleep_ms(2875);
 }
