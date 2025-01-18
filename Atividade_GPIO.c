@@ -21,7 +21,6 @@ const char keypad_map[KEYPAD_ROWS][KEYPAD_COLS] = {
 
 void initialize_gpio()
 {
-
     for (int row = 0; row < KEYPAD_ROWS; row++)
     {
         gpio_init(row_pins[row]);
@@ -42,8 +41,10 @@ void initialize_gpio()
 
     gpio_init(LED_BLUE);
     gpio_set_dir(LED_BLUE, GPIO_OUT);
+
     gpio_init(LED_RED);
     gpio_set_dir(LED_RED, GPIO_OUT);
+    
     gpio_init(LED_GREEN);
     gpio_set_dir(LED_GREEN, GPIO_OUT);
 }
@@ -101,45 +102,51 @@ void blink_green()
 
 int main()
 {
-    initialize_gpio();
     stdio_init_all();
+    initialize_gpio();
+
+    printf(">> Pressione uma tecla...\n");
 
     while (true) {
         char key = read_keypad();
 
         if (key) {
-
-            switch (key)
-            {
-            case '1':
-            case '4':
-            case '7':
-            case '0':
-            case 'C':
-                blink_green();
-                break;
-            case '2':
-            case '5':
-            case '8':
-            case 'A':
-            case 'D':
-            case '#':
-                blink_blue();
-                break;
-            case '3':
-            case '6':
-            case '9':
-            case 'B':
-                blink_red();
-                break;
-            case '*':
-                blink_red();
-                buzzer_beep();
-                break;
+            switch (key) {
+                case '1':
+                case '4':
+                case '7':
+                case '0':
+                case 'C':
+                    blink_green();
+                    break;
+                case '2':
+                case '5':
+                case '8':
+                case 'B':
+                    blink_blue();
+                    break;
+                case 'A':
+                case '3':
+                case '6':
+                case '9':
+                    blink_red();
+                    break;
+                case 'D':
+                    blink_red();
+                    blink_blue();
+                    blink_green();
+                    break;
+                case '#':
+                    buzzer_beep();
+                    break;
+                case '*':
+                    blink_red();
+                    buzzer_beep();
+                    break;
             }
         }
 
-        sleep_ms(50);
+        sleep_ms(50); // debounce
     }
 
     return 0;
