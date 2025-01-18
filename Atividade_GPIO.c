@@ -49,7 +49,7 @@ int main()
             switch (key)
             {
             case '1':
-                Pisca_GREEN();
+                Pisca_RED();
                 break;
             case '2':
                 Pisca_BLUE();;
@@ -79,28 +79,26 @@ int main()
                Pisca_GREEN();
                break;
             case 'A':
-                Pisca_BLUE();;
+                Pisca_RED();;
                 break;
             case 'B':
-                Pisca_RED();
+                Pisca_GREEN();
                 break;
             case 'C':
-               Pisca_GREEN();
+               Pisca_BLUE();
                break;
-            case 'D':
-                Pisca_BLUE();
+            case 'D':      
                 break;
             case '#':
-                Pisca_BLUE();
+                buzzer_beep();
                 break;
             case '*':
-                Pisca_RED();
+                Pisca_RED();Pisca_GREEN();Pisca_BLUE(); 
                 printf("Buzzer acionado!\n");
                 buzzer_beep();
                 break;
             }
         }
-
         sleep_ms(50);
     }
 
