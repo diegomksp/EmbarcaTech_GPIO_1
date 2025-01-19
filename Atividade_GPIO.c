@@ -18,6 +18,12 @@ void Pisca_GREEN();
 void Pisca_BLUE();
 void tmed();
 void tfinal();
+void morse();
+void sos();
+void ola();
+void completo();
+void cascata();
+
 
 // Vetores para as linhas e colunas GPIO do teclado
 uint8_t row_pins[NUM_ROW_COLUMNS] = {2, 3, 4, 5};    // Vetor para as linhas GPIO
@@ -52,62 +58,50 @@ int main()
             // Switch case para cada botão do teclado
             switch (key)
             {
-            case '1': //SOS vermelho
-                t=200;
-                Pisca_RED(t);Pisca_RED(t);Pisca_RED(t);tmed();//S   
-                t=800;
-                Pisca_RED(t);Pisca_RED(t);Pisca_RED(t);tmed();//O
-                t=200;
+            case '1':
+                sos(LED_BLUE);
                 break;
-            case '2': //SOS verde
-                t=200;
-                Pisca_GREEN(t);Pisca_GREEN(t);Pisca_GREEN(t);tmed();//S
-                t=800;
-                Pisca_GREEN(t);Pisca_GREEN(t);Pisca_GREEN(t);tmed();//O
-                t=200;
-                Pisca_GREEN(t);Pisca_GREEN(t);Pisca_GREEN(t);tfinal();//S
+            case '2':
+                sos(LED_RED);
                 break;
-            case '3': //SOS azul
-                t=200;
-                Pisca_BLUE(t);Pisca_BLUE(t);Pisca_BLUE(t);tmed();//S
-                t=800;
-                Pisca_BLUE(t);Pisca_BLUE(t);Pisca_BLUE(t);tmed();//O
-                t=200;
-                Pisca_BLUE(t);Pisca_BLUE(t);Pisca_BLUE(t);tfinal();//S
-                break;
+            case '3':
+                sos(LED_GREEN);
+                break;           
             case '4':
-                Pisca_GREEN(t);
+                ola(LED_BLUE);
                 break;
             case '5':
-                Pisca_BLUE(t);;
+                ola(LED_RED);
                 break;
             case '6':
-                Pisca_RED(t);
+                ola(LED_GREEN);
                 break;
             case '7':
-               Pisca_GREEN(t);
+               Pisca_GREEN();
+               buzzer_beep();
                break;
             case '8':
-                Pisca_BLUE(t);;
+                Pisca_BLUE();
+                buzzer_beep();
                 break;
             case '9':
-                Pisca_RED(t);
+                Pisca_RED();
+                buzzer_beep();
                 break;
             case '0':
-               Pisca_GREEN(t);
+               cascata();
                break;
             case 'A':
-                Pisca_RED(t);;
+                Pisca_RED();
                 break;
             case 'B':
-                int t = 500;
-                Pisca_GREEN(t);
+                Pisca_GREEN();
                 break;
             case 'C':
-               Pisca_BLUE(t);
-               break;
-            case 'D': 
-                Pisca_RED(t);Pisca_GREEN(t);Pisca_BLUE(t);      
+                Pisca_BLUE();
+                break;
+            case 'D':
+                completo();
                 break;
             case '#':
                 buzzer_beep();
@@ -181,7 +175,7 @@ char read_keyboard()
 } // Fim read_keyboard
 
 // Função para o buzzer(Ainda em andamento)
-void buzzer_beep(int a)
+void buzzer_beep()
 {
     int contB;
     for (contB = 0; contB < 100; contB++)
@@ -193,32 +187,96 @@ void buzzer_beep(int a)
     }
 } // Fim buzzer_beep
 
-void Pisca_RED(int a)
+void Pisca_RED()
 {
     gpio_put(LED_RED, true);
-    sleep_ms(a);
+    sleep_ms(500);
     gpio_put(LED_RED, false);
-    sleep_ms(125);
 }
-void Pisca_BLUE(int a)
+void Pisca_BLUE()
 {
     gpio_put(LED_BLUE, true);
-    sleep_ms(a);
+    sleep_ms(500);
     gpio_put(LED_BLUE, false);
-    sleep_ms(125);
 }
-void Pisca_GREEN(int a)
+void Pisca_GREEN()
 {
     gpio_put(LED_GREEN, true);
-    sleep_ms(a);
+    sleep_ms(500);
     gpio_put(LED_GREEN, false);
+}
+void morse(int led_pin, int a){
+    gpio_put(led_pin, true);
+    sleep_ms(a);
+    gpio_put(led_pin, false);
     sleep_ms(125);
 }
-void tmed()
-{
+void tmed(){
   sleep_ms(125);
 }
-void tfinal()
-{
-  sleep_ms(2875);
+void tfinal(){
+  sleep_ms(875);
+}
+void sos(int led){
+    int t;
+    t=200;
+    morse(led, t);//S 
+    morse(led, t);
+    morse(led, t);
+    tmed();  
+    t=800;
+    morse(led, t);//O
+    morse(led, t);
+    morse(led, t);
+    tmed();
+    t=200;
+    morse(led, t);//S 
+    morse(led, t);
+    morse(led, t);
+    tmed();
+}
+void ola(int led){
+    int t;
+    t=200;
+    morse(led, t);//O
+    morse(led, t);
+    morse(led, t);
+    tmed();
+    morse(led, t);//L
+    t=800;
+    morse(led, t);
+    t=200;
+    morse(led, t);
+    morse(led, t);
+    tmed();
+    morse(led, t);//Á
+    t=800;
+    morse(led, t);
+    t=200;
+    morse(led, t);
+    t=800;
+    morse(led, t);
+    tfinal();
+}
+void completo(){
+    gpio_put(LED_BLUE, true);
+    gpio_put(LED_GREEN, true);
+    gpio_put(LED_RED, true);
+    sleep_ms(500);
+    gpio_put(LED_BLUE, false);
+    gpio_put(LED_GREEN, false);
+    gpio_put(LED_RED, false);    
+}
+void cascata(){
+    gpio_put(LED_BLUE, true);
+    sleep_ms(250);
+    gpio_put(LED_GREEN, true);
+    sleep_ms(250);
+    gpio_put(LED_RED, true);
+    sleep_ms(250);
+    gpio_put(LED_BLUE, false);
+    sleep_ms(250);
+    gpio_put(LED_GREEN, false);
+    sleep_ms(250);
+    gpio_put(LED_RED, false); 
 }
