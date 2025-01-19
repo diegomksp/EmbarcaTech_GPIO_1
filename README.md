@@ -27,6 +27,10 @@ A divisão das funções foi definida pelo grupo no WhatsApp
 *Figura 2: Definição de minha parte*
 
 
+## Vídeo da Simulação
+
+[![Vídeo da Simulação](./docs/thumbnail.png)](./docs/demo.mov)
+
 
 ## Como Usar
 
@@ -40,8 +44,4 @@ A divisão das funções foi definida pelo grupo no WhatsApp
 - **Função `initialize_gpio`**: Configura os GPIOs para o teclado, LEDs e buzzer.
 - **Função `read_keypad`**: Lê a tecla pressionada no teclado matricial.
 - **Funções de LEDs e Buzzer**: Executam os padrões de iluminação e som.
-
-## Link para Demonstração
-
-[https://drive.google.com/file/d/1vnW8hbfslwwWvmJr5zDznYLah9hj0fww/view?usp=sharing](#)
 
